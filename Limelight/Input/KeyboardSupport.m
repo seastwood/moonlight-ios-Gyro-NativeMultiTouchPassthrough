@@ -448,4 +448,25 @@
     event->modifierKeycode = 0x12;
 }
 
++ (void)sendMouseButtonEvent:(int)button down:(BOOL)down {
+    LiSendMouseButtonEvent(down ? BUTTON_ACTION_PRESS : BUTTON_ACTION_RELEASE, button);
+}
+
++ (void)sendMouseWheelEvent:(short)deltaY deltaX:(short)deltaX {
+    if (deltaY != 0) {
+        LiSendHighResScrollEvent(deltaY);
+    }
+    if (deltaX != 0) {
+        LiSendHighResHScrollEvent(deltaX);
+    }
+}
+
++ (void)sendMousePositionEvent:(short)x y:(short)y width:(short)width height:(short)height {
+    LiSendMousePositionEvent(x, y, width, height);
+}
+
++ (void)sendTouchEvent:(int)eventType x:(short)x y:(short)y pointerId:(int)pointerId pressure:(float)pressure contactAreaMajor:(float)contactAreaMajor contactAreaMinor:(float)contactAreaMinor rotation:(float)rotation {
+    LiSendTouchEvent(eventType, pointerId, x, y, pressure, contactAreaMajor, contactAreaMinor, rotation);
+}
+
 @end
